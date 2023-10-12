@@ -33,7 +33,7 @@ def decrypt_message():
     global encryption
     private_key = rsaFunctions.generatePrivateKey(key[0], phi, n)
     decrypted = rsaFunctions.decrypt(encryption, private_key)
-    decrypted_label.config(text=f"Decrypted Message Using Alice's Private Key: {decrypted}", font=font.Font(weight="bold"))
+    decrypted_label.config(text=f"Decrypted Message Using Alice's Private Key:\n {decrypted}", font=font.Font(weight="bold"))
 
 # Create the main window
 window = tk.Tk()
@@ -80,15 +80,7 @@ decrypted_label.pack()
 window.mainloop()
 
 #What I wanted to achieve by using Person() and then use to people - Alice and Bob
-#Bob sends message
-#Alice decrypts message
-#Alice have her own keypair -
-#Public key (e,n) is public
-#Bob sends a message to Alice using public Key - C = M^e mod n
-#Alice reverses cipher text with private key (d,e), d is multiplicative inverse of e
-# M = M^d mod n
-
-
-#Signing a message
-#Alice sends a message to Bob, and generates a signature = M^d mod n
-#Bob verifies the signature by using public key (e,n) and checks if M = S^e mod n
+#Bob sends a document to Alice, encrypted with Alice's public key
+#Alice receives the document from Bob and decrypts using her private key
+#She signs the document with her private key and sends it back to Bob
+#Bob verifies this signature using Alice's public key
