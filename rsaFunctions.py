@@ -76,25 +76,29 @@ def returnE(phi):
         e = random.randint(3, phi-1)
     return e
 
-
-
 #Find a multiplicative inverse in modular phi, is a number d such that e*d ≡ 1 mod phi
+#meaning, phi / (e * d ) , remainder = 1
 def modularInverse(e, phi):
     for d in range(1, phi):
         if (d*e) % phi == 1: #if d*e ≡ 1 mod phi, then d is the multiplicative inverse of e
             return d #Simple errorhandling for no multiplicative inverse, in this demonstration we assume that there always is one
-    raise ValueError("e and d cannot be equal")
+    raise ValueError("There are no multiplicative inverse")
 
+#Function to return public key
 def generatePublicKey(phi, n):
     e = returnE(phi)
     return e,n
 
+#Function to return public key
 def generatePrivateKey(e, phi, n):
     d = modularInverse(e, phi)
     return d,n
-# Now, you have the public key (n, e) and private key (n, d)
+
+# Now, you have the public key (e,n) and private key (d,n)
 
 # Function to encrypt a message by encrypting using the public key and the numeric value of each character
+#Used pow(), takes in x (basevalue) and y (exponent) and z(modulus) and returns x^y modulus z
+#pow(char, e, n) - (char^r)
 def encrypt(plainText, publicKey):
     e = publicKey[0]
     n = publicKey[1]
@@ -102,21 +106,19 @@ def encrypt(plainText, publicKey):
     cipherText = []
     for char in plainText:
         numericValue = letterToNumber[char]
-        encryptedCharValue = 1
-        for i in range(e):
-            encryptedCharValue = (encryptedCharValue * numericValue) % n #The result encryption for a single character is numericValue^e mod n, wanted to use pow()
+        encryptedCharValue = pow(numericValue, e, n)
         cipherText.append(encryptedCharValue)
     return cipherText
 
 # Function to decrypt a message by decrypting using the private key and the numeric value of each character
+#Used pow(), takes in x (basevalue) and y (exponent) and z(modulus) and returns x^y modulus z
+#pow(char, e, n) - (char^r)
 def decrypt(cipherText, privateKey):
     d = privateKey[0]
     n = privateKey[1]
     plainText = ""
     for encryptedChar in cipherText:
-        numericValue = 1
-        for i in range(d):
-            numericValue = (numericValue * encryptedChar) % n #The result encryption for a single character is encryptedChar^d mod n, wanted to use pow()
+        numericValue = pow(encryptedChar, d, n)
         char = numberToLetter(numericValue)
         if char is None:
             plainText += " "
