@@ -98,7 +98,7 @@ def generatePrivateKey(e, phi, n):
 
 # Function to encrypt a message by encrypting using the public key and the numeric value of each character
 #Used pow(), takes in x (basevalue) and y (exponent) and z(modulus) and returns x^y modulus z
-#pow(char, e, n) - (char^r)
+#pow(char, e, n) - (char^r) mod n
 def encrypt(plainText, publicKey):
     e = publicKey[0]
     n = publicKey[1]
@@ -112,7 +112,7 @@ def encrypt(plainText, publicKey):
 
 # Function to decrypt a message by decrypting using the private key and the numeric value of each character
 #Used pow(), takes in x (basevalue) and y (exponent) and z(modulus) and returns x^y modulus z
-#pow(char, e, n) - (char^r)
+#pow(char, e, n) - (char^r) mod n
 def decrypt(cipherText, privateKey):
     d = privateKey[0]
     n = privateKey[1]
