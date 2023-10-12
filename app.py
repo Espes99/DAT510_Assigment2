@@ -1,10 +1,14 @@
 import tkinter as tk
 import rsaFunctions 
 
+#Having global fields for phi is not ideal. The phi is to be kept a secret. 
+#I had issues in fetching the phi from the encrypt_message() function
 key = None
 phi = None
 n = None
 encryption = None
+
+#Encryption for the GUI
 def encrypt_message():
     global key
     global phi
@@ -22,6 +26,7 @@ def encrypt_message():
     # Enable the decryption button
     decrypt_button.config(state="normal")
 
+#Decryption method for GUI
 def decrypt_message():
     global key  # Use the global key variable
     global encryption
@@ -33,45 +38,48 @@ def decrypt_message():
         print("Key or encryption was none")
 
 # Create the main window
-root = tk.Tk()
-root.title("RSA Use Case - Mail")
-
-# Set the window size
-root.geometry("800x600")  # Width x Height
+window = tk.Tk()
+window.title("RSA Use Case - Mail")
 
 # Styling
-root.configure(bg="#f0f0f0")  # Background color
+window.configure()  # Background color
 
-frame = tk.Frame(root, bg="#ffffff", padx=10, pady=10)
-frame.pack(fill="both", expand=True)
+frame = tk.Frame(window)
+frame.pack(fill="both")
 
-# Create and place widgets with improved styling
-message_label = tk.Label(frame, text="Enter message:", font=("Helvetica", 12), bg="#ffffff")
+#Creating label - Enter message
+message_label = tk.Label(frame, text="Enter message:", font=("Helvetica", 12))
 message_label.pack()
 
+#Creating entry field for message
 message_entry = tk.Entry(frame, font=("Helvetica", 12))
 message_entry.pack()
 
+#Creating button - Send encrypted message
 encrypt_button = tk.Button(frame, text="Send Encrypted Message", command=encrypt_message, font=("Helvetica", 12), bg="red")
 encrypt_button.pack(pady=10)
 
-public_key_label = tk.Label(frame, text="Public Key Used to Encrypt: ", font=("Helvetica", 12), bg="#ffffff")
+#Creating label - Public key used to encrypt
+public_key_label = tk.Label(frame, text="Public Key Used to Encrypt: ", font=("Helvetica", 12))
 public_key_label.pack()
 
-encrypted_label = tk.Label(frame, text="Encrypted Message: ", font=("Helvetica", 12), bg="#ffffff")
+#Creating label - Encrypted message
+encrypted_label = tk.Label(frame, text="Encrypted Message: ", font=("Helvetica", 12))
 encrypted_label.pack()
 
 # Decryption section
-decrypt_frame = tk.Frame(frame, bg="#ffffff", padx=10, pady=10)
-decrypt_button = tk.Button(decrypt_frame, text="Decrypt", command=decrypt_message, font=("Helvetica", 12), bg="lightblue", fg="#ffffff", state="disabled")
+decrypt_frame = tk.Frame(frame, padx=10, pady=10)
+
+#Decrypt button to get message, orignally disabled until message is encrypted
+decrypt_button = tk.Button(decrypt_frame, text="Decrypt", command=decrypt_message, font=("Helvetica", 12), bg="lightblue", state="disabled")
 decrypt_button.pack()
 decrypt_frame.pack()
 
-decrypted_label = tk.Label(decrypt_frame, text="Decrypted Once received: ", font=("Helvetica", 12), bg="#ffffff")
+#Decrypted message
+decrypted_label = tk.Label(decrypt_frame, text="Decrypted Once received: ", font=("Helvetica", 12))
 decrypted_label.pack()
 
-# Start the Tkinter main loop
-root.mainloop()
+window.mainloop()
 
 #What I wanted to achieve by using Person() and then use to people - Alice and Bob
 #Bob sends message
