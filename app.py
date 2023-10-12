@@ -30,19 +30,16 @@ def encrypt_message():
 def decrypt_message():
     global key  # Use the global key variable
     global encryption
-    if key is not None and encryption is not None:
-        private_key = rsaFunctions.generatePrivateKey(key[0], phi, n)
-        decrypted = rsaFunctions.decrypt(encryption, private_key)
-        decrypted_label.config(text=f"Decrypted Once received: {decrypted}")
-    else:
-        print("Key or encryption was none")
+    private_key = rsaFunctions.generatePrivateKey(key[0], phi, n)
+    decrypted = rsaFunctions.decrypt(encryption, private_key)
+    decrypted_label.config(text=f"Decrypted Once received: {decrypted}")
 
 # Create the main window
 window = tk.Tk()
-window.title("RSA Use Case - Mail")
+window.title("RSA Use Case - Sending service")
 
 # Styling
-window.configure()  # Background color
+window.configure()
 
 frame = tk.Frame(window)
 frame.pack(fill="both")
