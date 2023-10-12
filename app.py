@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import font
 import rsaFunctions 
 
 #Having global fields for phi is not ideal. The phi is to be kept a secret. 
@@ -7,7 +8,7 @@ key = None
 phi = None
 n = None
 encryption = None
-
+# Create font object
 #Encryption for the GUI
 def encrypt_message():
     global key
@@ -21,7 +22,7 @@ def encrypt_message():
     key = rsaFunctions.generatePublicKey(phi, n)
     public_key_label.config(text=f"Public Key Used to Encrypt: {key}")
     encryption = rsaFunctions.encrypt(message, key)
-    encrypted_label.config(text=f"Encrypted Message: {encryption}")
+    encrypted_label.config(text=f"Bob's Encrypted Message Using Alice's Public Key:\n {encryption}", font=font.Font(weight="bold"))
     
     # Enable the decryption button
     decrypt_button.config(state="normal")
@@ -32,7 +33,7 @@ def decrypt_message():
     global encryption
     private_key = rsaFunctions.generatePrivateKey(key[0], phi, n)
     decrypted = rsaFunctions.decrypt(encryption, private_key)
-    decrypted_label.config(text=f"Decrypted Once received: {decrypted}")
+    decrypted_label.config(text=f"Decrypted Message Using Alice's Private Key: {decrypted}", font=font.Font(weight="bold"))
 
 # Create the main window
 window = tk.Tk()
@@ -61,7 +62,7 @@ public_key_label = tk.Label(frame, text="Public Key Used to Encrypt: ", font=("H
 public_key_label.pack()
 
 #Creating label - Encrypted message
-encrypted_label = tk.Label(frame, text="Encrypted Message: ", font=("Helvetica", 12))
+encrypted_label = tk.Label(frame, text="Encrypting Message...: ", font=("Helvetica", 12))
 encrypted_label.pack()
 
 # Decryption section
