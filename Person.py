@@ -29,15 +29,3 @@ alice.encrypted = encrypted
 decrypted = decrypt(alice.encrypted, alice.private_key)
 print(alice.encrypted)
 print(decrypted)
-
-
-#Alice have her own keypair -
-#Her public key (e,n) is public
-#Bob sends a message to Alice using Alice's public Key - C = M^e mod n
-#Alice reverses cipher text with private key (d,e), d is multiplicative inverse of e
-# M = M^d mod n
-
-
-#Signing a message
-#Alice sends a message to Bob, and generates a signature = M^d mod n
-#Bob verifies the signature by using Alice's public key (e,n) and checks if M = S^e mod n

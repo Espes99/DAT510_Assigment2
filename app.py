@@ -72,3 +72,17 @@ decrypted_label.pack()
 
 # Start the Tkinter main loop
 root.mainloop()
+
+#What I wanted to achieve by using Person() and then use to people - Alice and Bob
+#Bob sends message
+#Alice decrypts message
+#Alice have her own keypair -
+#Public key (e,n) is public
+#Bob sends a message to Alice using public Key - C = M^e mod n
+#Alice reverses cipher text with private key (d,e), d is multiplicative inverse of e
+# M = M^d mod n
+
+
+#Signing a message
+#Alice sends a message to Bob, and generates a signature = M^d mod n
+#Bob verifies the signature by using public key (e,n) and checks if M = S^e mod n

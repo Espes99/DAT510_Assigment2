@@ -104,7 +104,7 @@ def encrypt(plainText, publicKey):
         numericValue = letterToNumber[char]
         encryptedCharValue = 1
         for i in range(e):
-            encryptedCharValue = (encryptedCharValue * numericValue) % n #The result encryption for a single character is numericValue^e mod n
+            encryptedCharValue = (encryptedCharValue * numericValue) % n #The result encryption for a single character is numericValue^e mod n, wanted to use pow()
         cipherText.append(encryptedCharValue)
     return cipherText
 
@@ -116,7 +116,7 @@ def decrypt(cipherText, privateKey):
     for encryptedChar in cipherText:
         numericValue = 1
         for i in range(d):
-            numericValue = (numericValue * encryptedChar) % n #The result encryption for a single character is encryptedChar^d mod n
+            numericValue = (numericValue * encryptedChar) % n #The result encryption for a single character is encryptedChar^d mod n, wanted to use pow()
         char = numberToLetter(numericValue)
         if char is None:
             plainText += " "
