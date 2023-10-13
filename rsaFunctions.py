@@ -80,6 +80,7 @@ def returnE(phi):
 def modularInverse(e, phi):
     d = pow(e, -1, phi)
     return d
+
 #Function to return public key
 def generatePublicKey(phi, n):
     e = returnE(phi)
@@ -104,7 +105,8 @@ def encrypt(plainText, publicKey):
         numericValue = letterToNumber[char]
         encryptedCharValue = pow(numericValue, e, n)
         cipherText.append(encryptedCharValue)
-    return cipherText
+    return cipherText # This maps same char to same values. Should do block-wise
+
 
 # Function to decrypt a message by decrypting using the private key and the numeric value of each character
 #Used pow(), takes in x (basevalue) and y (exponent) and z(modulus) and returns x^y modulus z
