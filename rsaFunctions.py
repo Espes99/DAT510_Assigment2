@@ -77,13 +77,9 @@ def returnE(phi):
     return e
 
 #Find a multiplicative inverse in modular phi, is a number d such that e*d ≡ 1 mod phi
-#meaning, phi / (e * d ) , remainder = 1
 def modularInverse(e, phi):
-    for d in range(1, phi):
-        if (d*e) % phi == 1: #if d*e ≡ 1 mod phi, then d is the multiplicative inverse of e
-            return d #Simple errorhandling for no multiplicative inverse, in this demonstration we assume that there always is one
-    raise ValueError("There are no multiplicative inverse")
-
+    d = pow(e, -1, phi)
+    return d
 #Function to return public key
 def generatePublicKey(phi, n):
     e = returnE(phi)
